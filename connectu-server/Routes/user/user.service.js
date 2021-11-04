@@ -4,8 +4,8 @@ const { mailTransporter } = require('./../../nodemailer')
 const bcryptJs = require('bcryptjs');
 var randomstring = require("randomstring");
 const { utils } = require('../../utils');
-
-
+const { unlinkSync } = require('fs');
+const { UserContact } = require('./models/contacts.model')
 class UserServices {
 
 
@@ -69,9 +69,11 @@ class UserServices {
             req.user.name = name || req.user.name;
             req.user.bio = bio || req.user.bio;
             if (req.files) {
+                if (req.user.img) unlinkSync(req.user.img);
                 if (!req.files.img) return res.status(404).send({ msg: "you should sed image with img key." });
-                req.files.img.mv('public/' + req.user._id + '.jpg');
-                req.user.img = 'public/' + req.user._id + '.jpg';
+                let rand = utils.createOtp();
+                req.files.img.mv('public/' + rand + req.user._id + '.jpg');
+                req.user.img = 'public/' + rand + req.user._id + '.jpg';
             }
             await req.user.save();
             res.status(200).send({ user: req.user, msg: 'Profile updated.' });
@@ -80,7 +82,25 @@ class UserServices {
         }
     }
 
+    async filterContact(req, res) {
+        try {
+            let { data } = req.body;
+            console.log(data);
+            res.status(200).send();
+        } catch (error) {
 
+        }
+    }
+    async fetchAllContactList(req, res) {
+        try {
+            let { number } = req.params;
+            let data = await User.findOne({ number: number }).populate('contacts');
+            console.log(data.contacts.contacts.length)
+            res.status(200).send({ data });
+        } catch (error) {
+            res.status(400).send({ error: error.message })
+        }
+    }
 }
 
 const UserService = new UserServices();

@@ -18,13 +18,7 @@ class CustomThemes {
     scaffoldBackgroundColor: lightBG,
     appBarTheme: AppBarTheme(
       elevation: 0,
-      textTheme: TextTheme(
-        title: TextStyle(
-          color: Colors.blueGrey,
-          fontSize: 20,
-          fontWeight: FontWeight.w800,
-        ),
-      ),
+      textTheme: TextTheme(),
     ),
   );
 
@@ -37,13 +31,7 @@ class CustomThemes {
     cursorColor: darkAccent,
     appBarTheme: AppBarTheme(
       elevation: 0,
-      textTheme: TextTheme(
-        title: TextStyle(
-          color: lightBG,
-          fontSize: 20,
-          fontWeight: FontWeight.w800,
-        ),
-      ),
+      textTheme: TextTheme(),
     ),
   );
 }

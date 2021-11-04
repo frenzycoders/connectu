@@ -2,6 +2,8 @@
 const express = require('express');
 const app = express();
 const server = require('http').createServer(app);
+require('./socket/socket')(server);
+
 const mongoose = require('mongoose');
 const projectDetails = require('./projectDetails.json');
 const cors = require('cors');
@@ -32,6 +34,6 @@ app.use((req, res, next) => {
 
 require('./Config')(app);
 
-server.listen(3000, (err) => {
+server.listen(4000, (err) => {
   console.log('server is running on ===> http://localhost:3000');
 })

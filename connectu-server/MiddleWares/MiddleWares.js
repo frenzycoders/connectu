@@ -21,6 +21,7 @@ const checkRequiredFields = (fields) => {
     
     const checkRequiredHeaders = (headers) => {
         return (req, res, next) => {
+            
             const errorFields = []
             const requiredFields = Object.keys(req.headers)
     

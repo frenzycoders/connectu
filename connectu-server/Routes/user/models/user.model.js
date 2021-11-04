@@ -41,7 +41,11 @@ const UserSchema = new mongoose.Schema({
     security: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "UserSecurity"
-    }
+    },
+    contacts:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"UserContact"
+    }   
 }, {
     timestamps: true
 });
@@ -49,7 +53,7 @@ const UserSchema = new mongoose.Schema({
 UserSchema.methods.toJSON = function () {
     let User = this;
     let UserObj = User.toObject();
-    return lodash.pick(UserObj, ['_id', 'name', 'img', 'countryCode', 'number', 'bio', 'twaFa']);
+    return lodash.pick(UserObj, ['_id', 'name', 'img', 'countryCode', 'number', 'bio', 'twaFa','contacts']);
 }
 
 UserSchema.methods.genUserToken = function () {
